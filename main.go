@@ -1,7 +1,6 @@
 package main
 
 import (
-	"database/sql"
 	"net/http"
 	"text/template"
 
@@ -9,25 +8,6 @@ import (
 )
 
 var temp = template.Must(template.ParseGlob("templates/*.html"))
-
-type Produto struct {
-	Id         int
-	Nome       string
-	Descricao  string
-	Preco      float64
-	Quantidade int
-}
-
-func conectaComBanco() *sql.DB {
-	connStr := "user=app-web-go password=app-web-go dbname=root host=localhost sslmode=disable"
-	db, err := sql.Open("postgres", connStr)
-
-	if err != nil {
-		panic(err.Error())
-	}
-
-	return db
-}
 
 func main() {
 	http.HandleFunc("/", index)
